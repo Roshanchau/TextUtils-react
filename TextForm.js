@@ -13,6 +13,10 @@ export default function TextForm(props) {
     setText(newText1);
     props.showAlert("Converted to Lowercase", "success");
   };
+  const handleCopyText = () => {
+    navigator.clipboard.writeText(text);
+    props.showAlert("Copied to clipboard! ", "success");
+  };
   const handlecapCase = () => {
     const mySentence = text;
     const words = mySentence.split(" ");
@@ -25,19 +29,21 @@ export default function TextForm(props) {
     props.showAlert("Text Capitalized", "success");
   };
 
+  const newStyle = {};
+  if (props.mode === "light") {
+    newStyle.color = "#171d2f";
+  }
+  if (props.mode === "dark") {
+    newStyle.color = "white";
+  }
+
   const handleOnChange = (event) => {
     setText(event.target.value);
   };
   return (
     <>
-      <div
-        className="container"
-        id="container"
-        style={{
-          color: props.mode === "dark" ? "white" : "#171d2f",
-        }}
-      >
-        <h1>{props.heading}</h1>
+      <div className="container" style={newStyle} id="container">
+        <h1 className="mb-4">{props.heading}</h1>
         <div className="mb-3">
           <textarea
             className="form-control"
@@ -46,41 +52,93 @@ export default function TextForm(props) {
             value={text}
             onChange={handleOnChange}
             style={{
-              backgroundColor: props.mode === "dark" ? "grey" : "white",
+              backgroundColor: props.mode === "dark" ? "#13466e" : "white",
               color: props.mode === "dark" ? "white" : "#171d2f",
             }} //here we have put a curly braces to write javascrit and another curly braces to have an object of styles and used the conditional rendering by using the props "mode" .
           ></textarea>
         </div>
         <button
-          className="btn btn-primary mx-1"
-          style={{ color: props.newMode === "green" ? "green" : "light" }}
+          disabled={text.length === 0}
+          className={`btn btn-{if(${props.mode}==="light"){
+            dark
+          }if(${props.mode}==="dark"){
+           light
+          }
+          else{
+            ${props.mode}
+          } mx-1 my-1`}
+          style={{ border: "1px solid black" }}
           onClick={handleUpCase}
         >
           Convert to uppercase
         </button>
-        <button className="btn btn-primary mx-1" onClick={handlelowCase}>
+        <button
+          className={`btn btn-{if(${props.mode}==="light"){
+            dark
+          }if(${props.mode}==="dark"){
+           light
+          }
+          else{
+            ${props.mode}
+          }
+        } mx-1 my-1`}
+          style={{ border: "1px solid black" }}
+          disabled={text.length === 0}
+          onClick={handlelowCase}
+        >
           Convert to lowercase
         </button>
-        <button className="btn btn-primary mx-1" onClick={handlecapCase}>
+        <button
+          className={`btn btn-{if(${props.mode}==="light"){
+            dark
+          }if(${props.mode}==="dark"){
+           light
+          }
+          else{
+            ${props.mode}
+          } mx-1 my-1`}
+          style={{ border: "1px solid black" }}
+          disabled={text.length === 0}
+          onClick={handleCopyText}
+        >
+          copy text
+        </button>
+        <button
+          disabled={text.length === 0}
+          className={`btn btn-{if(${props.mode}==="light"){
+            dark
+          }if(${props.mode}==="dark"){
+            light
+          }
+          else{
+            ${props.mode}
+          } mx-1 my-1`}
+          style={{ border: "1px solid black" }}
+          onClick={handlecapCase}
+        >
           Capitalize
         </button>
       </div>
-      <div
-        className="container my-3"
-        id="summaryContainer"
-        style={{ color: props.mode === "dark" ? "white" : "#171d2f" }}
-      >
+      <div className="container my-3" id="summaryContainer" style={newStyle}>
         <h2>Your text summary</h2>
         <p>
-          {text.split(" ").length}words and {text.length}characters
+          {
+            // used the .filter() method to remove the counting of spaces as a no of word itself as when write a word for eg good and hit space it shows 2 words so to remove it we have used the filter method where it returns the values that are only true and since the space doesnot have any length so it is not true and it returns everything except it. check without the filter function and you will find out!
+            text.split(" ").filter((e) => {
+              return e.length !== 0;
+            }).length
+          }
+          words and {text.length}characters
         </p>
-        <p>{0.008 * text.split(" ").length} minutes read</p>
-        <h2>Preview</h2>
         <p>
-          {text.length > 0
-            ? text
-            : "Enter Something on the textbox to preview it here."}
+          {0.008 *
+            text.split(/\s+/).filter((e) => {
+              return e.length !== 0;
+            }).length}{" "}
+          minutes read
         </p>
+        <h2>Preview</h2>
+        <p>{text.length > 0 ? text : "Nothing to Preview"}</p>
       </div>
     </>
   );

@@ -9,20 +9,24 @@ function Alert(props) {
   return (
     //below we have used the props.alert&& as if in the useState alert mode is null then it will not show the alert message but if when toggled the type of the alert changes to sucess and then both the statements becomes true and we render the alert section.
     /*this happend because all the jsx will be converted to javascript calls*/
-    props.alert && (
-      <div
-        className={`alert alert-${props.alert.type} alert-dismissible fade show`}
-        role="alert"
-      >
-        <strong>{Capitalize(props.alert.type)}</strong>:{props.alert.msg}
-        <button
-          type="button"
-          className="btn-close"
-          data-bs-dismiss="alert"
-          aria-label="Close"
-        ></button>
-      </div>
-    )
+
+    // -----below we have given a seperate div for the alert so that it doesnot always scroll down pushing the other elements down it is a bad user exp.----------
+    <div style={{ height: "60px" }}>
+      {props.alert && (
+        <div
+          className={`alert alert-${props.alert.type} alert-dismissible fade show`}
+          role="alert"
+        >
+          <strong>{Capitalize(props.alert.type)}</strong>:{props.alert.msg}
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+      )}
+    </div>
   );
 }
 

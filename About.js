@@ -1,32 +1,43 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function About() {
-  const [myStyle, setMyStyle] = useState({
-    color: "black",
-    backgroundColor: "white",
-    width: "100vh",
-    margin: "2px",
-  });
-  const [myText, setMyText] = useState("Enable Dark Mode");
-  const handledarkMode = () => {
-    if (myStyle.color === "white") {
-      setMyStyle({
-        color: "black",
-        backgroundColor: "white",
-        border: "1px solid white",
-      });
-      setMyText("Enable Dark Mode");
-    } else {
-      setMyStyle({
-        color: "white",
-        backgroundColor: "black",
-      });
-      setMyText("Enable Light Mode");
-    }
+export default function About(props) {
+  // const [myStyle, setMyStyle] = useState({
+  //   color: "black",
+  //   backgroundColor: "white",
+  //   margin: "2px",
+  // });
+
+  /*------styling for the darkmode ---------*/
+  let myStyle = {
+    color: props.mode === "dark" ? "white" : "#042743",
+    backgroundColor: props.mode === "dark" ? "rgb(36 74 104)" : "white",
   };
+
+  // const [myText, setMyText] = useState("Enable Dark Mode");
+  // const handledarkMode = () => {
+  //   if (myStyle.color === "white") {
+  //     setMyStyle({
+  //       color: "black",
+  //       backgroundColor: "white",
+  //       border: "1px solid white",
+  //     });
+  //     setMyText("Enable Dark Mode");
+  //   } else {
+  //     setMyStyle({
+  //       color: "white",
+  //       backgroundColor: "black",
+  //     });
+  //     setMyText("Enable Light Mode");
+  //   }
+  // };
   return (
-    <div className="conatiner" style={myStyle}>
-      <h1 className="my-3">About Us</h1>
+    <div className="conatiner">
+      <h1
+        className="my-3"
+        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
+      >
+        About Us
+      </h1>
       <div className="accordion" id="accordionExample" style={myStyle}>
         <div className="accordion-item">
           <h2 className="accordion-header" id="headingOne">
@@ -39,7 +50,7 @@ export default function About() {
               aria-expanded="true"
               aria-controls="collapseOne"
             >
-              Accordion Item #1
+              <strong>Analyze your text</strong>
             </button>
           </h2>
           <div
@@ -49,14 +60,14 @@ export default function About() {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body" style={myStyle}>
-              <strong>This is the first item's accordion body.</strong> It is
-              shown by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
+              It is shown by default, until the collapse plugin adds the
+              appropriate classes that we use to style each element. These
+              classes control the overall appearance, as well as the showing and
+              hiding via CSS transitions. You can modify any of this with custom
+              CSS or overriding our default variables. It's also worth noting
+              that just about any HTML can go within the{" "}
+              <code>.accordion-body</code>, though the transition does limit
+              overflow.
             </div>
           </div>
         </div>
@@ -71,7 +82,7 @@ export default function About() {
               aria-expanded="false"
               aria-controls="collapseTwo"
             >
-              Accordion Item #2
+              <strong>Free to use</strong>
             </button>
           </h2>
           <div
@@ -81,7 +92,6 @@ export default function About() {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body" style={myStyle}>
-              <strong>This is the second item's accordion body.</strong> It is
               hidden by default, until the collapse plugin adds the appropriate
               classes that we use to style each element. These classes control
               the overall appearance, as well as the showing and hiding via CSS
@@ -103,7 +113,7 @@ export default function About() {
               aria-expanded="false"
               aria-controls="collapseThree"
             >
-              Accordion Item #3
+              <strong>Browser Compatible</strong>
             </button>
           </h2>
           <div
@@ -113,19 +123,19 @@ export default function About() {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body" style={myStyle}>
-              <strong>This is the third item's accordion body.</strong> It is
-              hidden by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
+              It is hidden by default, until the collapse plugin adds the
+              appropriate classes that we use to style each element. These
+              classes control the overall appearance, as well as the showing and
+              hiding via CSS transitions. You can modify any of this with custom
+              CSS or overriding our default variables. It's also worth noting
+              that just about any HTML can go within the{" "}
+              <code>.accordion-body</code>, though the transition does limit
+              overflow.
             </div>
           </div>
         </div>
       </div>
-      <div className="container my-3">
+      {/* <div className="container my-3">
         <button
           type="button"
           className="btn btn-primary"
@@ -133,7 +143,7 @@ export default function About() {
         >
           {myText}
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
